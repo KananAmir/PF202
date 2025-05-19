@@ -1,0 +1,20 @@
+.btn{
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #022952;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.bg-transparent{
+    background-color: transparent;
+    color: #022952;
+}
+.bg-orange{
+    background-color: orange;
+}
+.bg-teal{
+    background-color: teal;
+}

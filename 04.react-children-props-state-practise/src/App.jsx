@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import './App.css'
 import BlogsComponent from './components/Blogs';
 import Card from './components/Card';
 import Counter from "./components/Counter"
 import Layout from './components/Layout';
+import StudentForm from './components/StudentForm';
+import StudentTable from './components/StudentTable';
 function App() {
+  const [students, setStudents] = useState([])
 
-   const blogs = [
+
+  const blogs = [
     {
       id: 1,
       title: "React Nədir?",
@@ -32,17 +37,18 @@ function App() {
     }
   ];
 
+  //  console.log(students);
 
   return (
     <>
-    {/* <Counter/> */}
-    <BlogsComponent blogs={blogs} />
+      {/* <Counter/> */}
+      {/* <BlogsComponent blogs={blogs} />
     <Card cardTitle={"React Props"}>
       <h3>PF202</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus alias laudantium dolor.</p>
-    </Card>
+    </Card> */}
 
-    {/* <Layout>
+      {/* <Layout>
       <h5>Lorem ipsum dolor sit amet.</h5>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. At impedit, id harum ipsam tempore sunt?</p>
     </Layout>
@@ -53,6 +59,10 @@ function App() {
       <section>main section</section>
     </Layout> */}
 
+
+      <StudentForm students={students} setStudents={setStudents} />
+      <hr />
+      <StudentTable students={students} setStudents={setStudents} />
     </>
   )
 }

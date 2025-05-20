@@ -37,10 +37,10 @@ function App() {
     <>
     {/* <Counter/> */}
     <BlogsComponent blogs={blogs} />
-    {/* <Card cardTitle={"React Props"}>
+    <Card cardTitle={"React Props"}>
       <h3>PF202</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus alias laudantium dolor.</p>
-    </Card> */}
+    </Card>
 
     {/* <Layout>
       <h5>Lorem ipsum dolor sit amet.</h5>

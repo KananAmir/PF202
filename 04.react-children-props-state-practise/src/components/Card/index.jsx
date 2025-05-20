@@ -3,7 +3,7 @@ const Card = ({children, cardTitle}) => {
     console.log("children prop", children);
     
   return (
-    <div>
+    <div style={{backgroundColor:"teal", padding:"1rem", maxWidth: "400px", margin: "0 auto"}}>
         <h2>{cardTitle}</h2>
         {children}
     </div>

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
 const StudentTable = ({ students, setStudents }) => {
 
+    const [searchValue, setSearchValue] = useState("")
 
     const handleDelete = (id)=>{
         // const idx = students.findIndex((q)=>q.id === id)
@@ -13,12 +15,18 @@ const StudentTable = ({ students, setStudents }) => {
         // console.log(updatedStudents);
         setStudents(students.filter((q)=>q.id !== id))
     }
+
+
+    const filteredStudents = students.filter((student) => student.studentName.toLowerCase().includes(searchValue))
+    
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                    <div><input type="search" className="border-3 px-3 py-1" onChange={(e)=>{
+                        setSearchValue(e.target.value.toLowerCase())
+                    }}/></div>
                     <div className="overflow-hidden">
-
                         {
                             students.length > 0 ? (
                                 <table className="min-w-full">
@@ -39,13 +47,11 @@ const StudentTable = ({ students, setStudents }) => {
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                                 ACTIONS
                                             </th>
-
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        {students.length > 0 &&
-                                            students.map((s) => {
+                                        {filteredStudents.map((s) => {
                                                 return (
                                                     <tr className="bg-gray-100 border-b" key={s.id}>
                                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">

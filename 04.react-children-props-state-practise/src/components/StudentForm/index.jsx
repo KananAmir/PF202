@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
 
-class Student {
-    constructor(studentName, gpa, uniName) {
-        this.studentName = studentName;
-        this.gpa = gpa;
-        this.universityName = uniName;
-        this.id = nanoid();
-    }
-}
+// class Student {
+//     constructor(studentName, gpa, uniName) {
+//         this.studentName = studentName;
+//         this.gpa = gpa;
+//         this.universityName = uniName;
+//         this.id = nanoid();
+//     }
+// }
 
 
 const StudentForm = ({ students, setStudents }) => {
@@ -24,7 +24,13 @@ const StudentForm = ({ students, setStudents }) => {
 
 
         if (studentName !== "" && gpa !== 0 && uniName !== "") {
-            const newStudent = new Student(studentName, gpa, uniName);
+            // const newStudent = new Student(studentName, gpa, uniName);
+            const newStudent = {
+                id: nanoid(),
+                studentName: studentName,
+                gpa: gpa,
+                universityName: uniName,
+            }
 
             setStudents([...students, newStudent]);
 

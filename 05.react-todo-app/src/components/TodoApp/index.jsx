@@ -5,9 +5,35 @@ import { FaTrashCan } from "react-icons/fa6";
 
 const TodoApp = () => {
 
-    const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState(() => {
+        const localData = localStorage.getItem('todos');
+        // return localData ? JSON.parse(localData) : []
+        if (localData !== null) {
+            return JSON.parse(localData)
+        }
+        return []
+    })
     const [todoText, setTodoText] = useState("")
     const [errorStatus, setErrorStatus] = useState(false)
+    const [filterValue, setFilterValue] = useState("all")
+
+    const FILTER = {
+        ALL: "all",
+        COMPLETED: "completed",
+        PENDING: "pending",
+    }
+
+    const filteredTodos = todos.filter((todo) => {
+        switch (filterValue) {
+            case FILTER.PENDING:
+                return todo.completed === false
+            case FILTER.COMPLETED:
+                return todo.completed === true
+
+            default:
+                return todo
+        }
+    })
 
 
     const handleAddTodo = (e) => {
@@ -27,6 +53,8 @@ const TodoApp = () => {
         }
 
         setTodos([...todos, newTodo])
+
+        localStorage.setItem("todos", JSON.stringify([...todos, newTodo]))
         // setTodos([...todos, newTodo])
 
         console.log(todos);
@@ -38,9 +66,10 @@ const TodoApp = () => {
 
 
     const handleDeleteTodo = (todoId) => {
-        // const updatedTodos = todos.filter(todo => todo.id !== todoId)
-        // setTodos(updatedTodos)
-        setTodos(todos.filter(todo => todo.id !== todoId))
+        const updatedTodos = todos.filter(todo => todo.id !== todoId)
+        setTodos(updatedTodos)
+
+        localStorage.setItem("todos", JSON.stringify(updatedTodos))
     }
 
     const handleToggle = (id) => {
@@ -54,9 +83,7 @@ const TodoApp = () => {
 
         setTodos(updatedTodos)
 
-        console.log(todos);
-
-
+        localStorage.setItem("todos", JSON.stringify(updatedTodos))
     }
 
     return (
@@ -99,16 +126,39 @@ const TodoApp = () => {
                         </div>
 
                         <hr />
+                        <div className='my-3'>
+
+                            <select className='border-3' onChange={(e) => {
+                                setFilterValue(e.target.value)
+                            }}>
+                                <option value="all">All Todos</option>
+                                <option value="pending">All Pending</option>
+                                <option value="completed">All Completed</option>
+                            </select>
+                            {
+                                todos.length > 0 && (
+                                    <button className='bg-red-300 p-3' onClick={() => {
+                                        setTodos([])
+                                        localStorage.setItem("todos", JSON.stringify([]))
+                                    }}>
+                                        delete all
+                                    </button>
+                                )
+                            }
+                        </div>
+
+                        <hr />
 
                         {
                             todos.length === 0 ? (<p className='text-red-600'>no todo item yet!</p>) : (
                                 <ul className="divide-y divide-gray-200 px-4">
-                                    {todos.map((todo) => {
+                                    {filteredTodos.map((todo) => {
                                         return (<li className="py-4" key={todo.id}>
                                             <div className="flex items-center">
                                                 <input
                                                     name="completed"
                                                     type="checkbox"
+                                                    checked={todo.completed}
                                                     className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
                                                     onChange={() => {
                                                         handleToggle(todo.id)
@@ -133,15 +183,7 @@ const TodoApp = () => {
                         }
 
 
-                        {
-                            todos.length > 0 && (
-                                <button className='bg-red-300 p-3' onClick={() => {
-                                    setTodos([])
-                                }}>
-                                    delete all
-                                </button>
-                            )
-                        }
+
 
                         <div>
 

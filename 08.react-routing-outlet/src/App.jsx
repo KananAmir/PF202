@@ -11,6 +11,10 @@ import AdminProducts from './pages/Admin/Products'
 import Products from './pages/Client/Products'
 import ErrorPage from './pages/Client/ErrorPage'
 import ProductDetail from './pages/Client/ProductDetail'
+import ProductView from './pages/Admin/ProductView'
+import AddProduct from './pages/Admin/AddProduct'
+import EditProduct from './pages/Admin/EditProduct'
+import ProtectedRoute from './components/ProtectedRoute'
 function App() {
 
   return (
@@ -25,16 +29,23 @@ function App() {
           {/* <Route path={"products/:id"} element={<ProductDetail />} /> */}
 
           <Route path={"products"} >
-            <Route index element={<Products />}/>
-            <Route path=':id' element={<ProductDetail />}/>
+            <Route index element={<Products />} />
+            <Route path=':id' element={<ProductDetail />} />
           </Route>
 
         </Route>
 
         {/* admin layout */}
         <Route path={"/admin"} element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path={"products"} element={<AdminProducts />} />
+          <Route index element={<ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>} />
+          <Route path={"products"}>
+            <Route index element={<AdminProducts />} />
+            <Route path={"new"} element={<AddProduct />} />
+            <Route path={"edit/:id"} element={<EditProduct />} />
+            <Route path={":id"} element={<ProductView />} />
+          </Route>
         </Route>
         <Route path={"*"} element={<ErrorPage />} />
       </Routes>

@@ -6,7 +6,6 @@ const AdminLayout = () => {
         <div>
             <AdminHeader/>
             <Outlet />
-
         </div>
     )
 }

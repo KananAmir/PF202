@@ -11,6 +11,9 @@ const AdminHeader = () => {
                     <li>
                         <Link className={"text-orange-500"} to={"/admin/products"}>Products</Link>
                     </li>
+                    <li>
+                        <Link className={"text-orange-500"} to={"/admin/products/new"}>Add Product</Link>
+                    </li>
                 </ul>
             </nav>
         </header>
